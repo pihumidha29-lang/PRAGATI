@@ -231,11 +231,12 @@ function MainLayout() {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = window.location.pathname;
 
   return (
     <QueryClientProvider client={queryClient}>
       <PragatiProvider>
-        <MainLayout />
+        {pathname === "/auth" ? <Outlet /> : <MainLayout />}
       </PragatiProvider>
     </QueryClientProvider>
   );

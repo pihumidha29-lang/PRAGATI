@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AiAssistantRouteImport } from './routes/ai-assistant'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BusinessIdeasRouteImport } from './routes/business-ideas'
 import { Route as BusinessSimulatorRouteImport } from './routes/business-simulator'
 import { Route as FinanceRouteImport } from './routes/finance'
@@ -40,6 +41,11 @@ const AboutRoute = AboutRouteImport.update({
 const AiAssistantRoute = AiAssistantRouteImport.update({
   id: '/ai-assistant',
   path: '/ai-assistant',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BusinessIdeasRoute = BusinessIdeasRouteImport.update({
@@ -117,6 +123,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/ai-assistant': typeof AiAssistantRoute
+  '/auth': typeof AuthRoute
   '/business-ideas': typeof BusinessIdeasRoute
   '/business-simulator': typeof BusinessSimulatorRoute
   '/finance': typeof FinanceRoute
@@ -136,6 +143,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/ai-assistant': typeof AiAssistantRoute
+  '/auth': typeof AuthRoute
   '/business-ideas': typeof BusinessIdeasRoute
   '/business-simulator': typeof BusinessSimulatorRoute
   '/finance': typeof FinanceRoute
@@ -156,6 +164,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/ai-assistant': typeof AiAssistantRoute
+  '/auth': typeof AuthRoute
   '/business-ideas': typeof BusinessIdeasRoute
   '/business-simulator': typeof BusinessSimulatorRoute
   '/finance': typeof FinanceRoute
@@ -177,6 +186,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/ai-assistant'
+    | '/auth'
     | '/business-ideas'
     | '/business-simulator'
     | '/finance'
@@ -196,6 +206,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/ai-assistant'
+    | '/auth'
     | '/business-ideas'
     | '/business-simulator'
     | '/finance'
@@ -215,6 +226,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/ai-assistant'
+    | '/auth'
     | '/business-ideas'
     | '/business-simulator'
     | '/finance'
@@ -235,6 +247,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AiAssistantRoute: typeof AiAssistantRoute
+  AuthRoute: typeof AuthRoute
   BusinessIdeasRoute: typeof BusinessIdeasRoute
   BusinessSimulatorRoute: typeof BusinessSimulatorRoute
   FinanceRoute: typeof FinanceRoute
@@ -272,6 +285,13 @@ declare module '@tanstack/react-router' {
       path: '/ai-assistant'
       fullPath: '/ai-assistant'
       preLoaderRoute: typeof AiAssistantRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/business-ideas': {
@@ -379,6 +399,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AiAssistantRoute: AiAssistantRoute,
+  AuthRoute: AuthRoute,
   BusinessIdeasRoute: BusinessIdeasRoute,
   BusinessSimulatorRoute: BusinessSimulatorRoute,
   FinanceRoute: FinanceRoute,
