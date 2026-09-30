@@ -1,4 +1,6 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabase";
 import {
   Rocket,
   MapPin,
@@ -40,9 +42,32 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: HomePage,
+   component: HomePageGuard,
 });
+function HomePageGuard() {
+  const navigate = useNavigate();
+  const [checkingAuth, setCheckingAuth] = useState(true);
 
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      if (!data.session) {
+        navigate({ to: "/auth", replace: true });
+      } else {
+        setCheckingAuth(false);
+      }
+    });
+  }, [navigate]);
+
+  if (checkingAuth) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <p className="text-muted-foreground">Loading PRAGATI...</p>
+      </div>
+    );
+  }
+
+  return <HomePage />;
+}
 export function HomePage() {
   const {
     profile,
