@@ -1,9 +1,10 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
-  Link,
   createRootRouteWithContext,
   useRouter,
+  useLocation,
+  Link,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -231,7 +232,7 @@ function MainLayout() {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const pathname = window.location.pathname;
+ const pathname = useLocation().pathname;
 
   return (
     <QueryClientProvider client={queryClient}>
